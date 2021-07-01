@@ -1,13 +1,10 @@
 package com.LojaDeGames.Games.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -18,8 +15,8 @@ public class Produto {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idProduto;
-	
+	private Long id;
+
 	@NotNull 
 	@Size (min = 5, max = 100)
 	private String nomeProduto;
@@ -31,16 +28,16 @@ public class Produto {
 	@NotNull
 	private double preco;
 	
-	@OneToMany(mappedBy = "objeto")
-	@JsonIgnoreProperties({"idCategoria", "tipo", "descricao"})
-	private List<Categoria> categorias = new ArrayList<>();
+	@ManyToOne
+	@JsonIgnoreProperties("produto")
+	private Categoria categoria;
 
-	public Long getIdProduto() {
-		return idProduto;
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdProduto(Long idProduto) {
-		this.idProduto = idProduto;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getNomeProduto() {
@@ -66,4 +63,12 @@ public class Produto {
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}	
 }

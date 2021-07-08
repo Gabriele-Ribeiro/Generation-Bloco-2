@@ -1,18 +1,19 @@
 package com.LojaDeGames.Games.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Categoria {
@@ -28,9 +29,8 @@ public class Categoria {
 	@Size(min = 5, max = 130)
 	private String descricao;
 	
-	@OneToMany(mappedBy = "categoria")
-	@JsonIgnoreProperties("categoria")
-	private List<Produto> produto;
+	@OneToMany(mappedBy = "tipoProduto", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+	private List<Produto> produtosCriados = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -56,11 +56,11 @@ public class Categoria {
 		this.descricao = descricao;
 	}
 
-	public List<Produto> getProduto() {
-		return produto;
+	public List<Produto> getProdutosCriados() {
+		return produtosCriados;
 	}
 
-	public void setProduto(List<Produto> produto) {
-		this.produto = produto;
+	public void setProdutosCriados(List<Produto> produtosCriados) {
+		this.produtosCriados = produtosCriados;
 	}
 }

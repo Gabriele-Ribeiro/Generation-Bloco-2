@@ -1,9 +1,12 @@
 package com.LojaDeGames.Games.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -28,9 +31,10 @@ public class Produto {
 	@NotNull
 	private double preco;
 	
-	@ManyToOne
-	@JsonIgnoreProperties("produto")
-	private Categoria categoria;
+	@ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+	@JoinColumn(name = "fk_categoria")
+	@JsonIgnoreProperties({"textoTema"})
+	private Produto tipoProduto;
 
 	public Long getId() {
 		return id;
@@ -64,11 +68,11 @@ public class Produto {
 		this.preco = preco;
 	}
 
-	public Categoria getCategoria() {
-		return categoria;
+	public Produto getTipoProduto() {
+		return tipoProduto;
 	}
 
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
-	}	
+	public void setTipoProduto(Produto tipoProduto) {
+		this.tipoProduto = tipoProduto;
+	}
 }

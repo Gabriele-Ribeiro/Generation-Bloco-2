@@ -1,9 +1,12 @@
 package com.farmacia.farmacia.Model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -28,9 +31,10 @@ public class ProdutoModel {
 	@NotNull
 	private double preco;
 	
-	@ManyToOne
-	@JsonIgnoreProperties("produto")
-	private CategoriaModel categoria;
+	@ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+	@JoinColumn(name = "fk_categoria")
+	@JsonIgnoreProperties({"textoTema"})
+	private ProdutoModel tipoProduto;
 
 	public long getId() {
 		return id;
@@ -64,11 +68,11 @@ public class ProdutoModel {
 		this.preco = preco;
 	}
 
-	public CategoriaModel getCategoria() {
-		return categoria;
+	public ProdutoModel getTipoProduto() {
+		return tipoProduto;
 	}
 
-	public void setCategoria(CategoriaModel categoria) {
-		this.categoria = categoria;
+	public void setTipoProduto(ProdutoModel tipoProduto) {
+		this.tipoProduto = tipoProduto;
 	}
 }

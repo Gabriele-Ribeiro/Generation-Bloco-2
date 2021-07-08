@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.farmacia.farmacia.Model.ProdutoModel;
-import com.farmacia.farmacia.Services.ProdutoServices;
 
 @RestController
 @RequestMapping("/produto")
@@ -26,9 +25,9 @@ import com.farmacia.farmacia.Services.ProdutoServices;
 public class ProdutoController {
 
 	@Autowired 
-	private ProdutoServices services;
+	private com.farmacia.farmacia.Services.ProdutoServices services;
 	
-	@GetMapping("/todos")
+	@GetMapping
 	public ResponseEntity<List<ProdutoModel>> buscarTodos() {
 		List<ProdutoModel> listaProduto = services.findAll();
 		if (listaProduto.isEmpty()) {
@@ -38,7 +37,7 @@ public class ProdutoController {
 		}
 	}
 
-	@GetMapping("/id")
+	@GetMapping("/id/{id}")
 	public ResponseEntity<List<ProdutoModel>> buscarId(@PathVariable long id) {
 		List<ProdutoModel> listaId = services.findById(id);
 		if (listaId.isEmpty()) {
@@ -48,7 +47,7 @@ public class ProdutoController {
 		}
 	}
 
-	@GetMapping("/descricao")
+	@GetMapping("/descricao/{descricao}")
 	public ResponseEntity<List<ProdutoModel>> buscarDescricao(@PathVariable String descricao) {
 		List<ProdutoModel> listaDescricao = services.findByDescricao(descricao);
 		if (listaDescricao.isEmpty()) {
@@ -58,7 +57,7 @@ public class ProdutoController {
 		}
 	}
 
-	@PostMapping("/criar")
+	@PostMapping
 	public ResponseEntity<Object> salvar(@Valid @RequestBody ProdutoModel novoProduto) {
 		Optional<Object> produtoCadastrado = services.criarProduto(novoProduto);
 
@@ -69,7 +68,7 @@ public class ProdutoController {
 		}
 	}
 
-	@PutMapping("/{produto}/atualizarProduto")
+	@PutMapping
 	public ResponseEntity<Object> atualizarProduto(@Valid @PathVariable(value = "atualizar_produto") Long atualizarProduto,
 			@Valid @RequestBody ProdutoModel produtoParaAtualizar) {
 		return services.atualizarProduto(atualizarProduto, produtoParaAtualizar)
@@ -77,7 +76,7 @@ public class ProdutoController {
 				.orElse(ResponseEntity.badRequest().build());
 	}
 
-	@DeleteMapping("/{produto}/Deletar")
+	@DeleteMapping
 	public ResponseEntity<Object> deletarProduto(@PathVariable(value = "produto_deletar") Long produtoDeletar,
 			@Valid @RequestBody ProdutoModel produtoParaDeletar) {
 		return services.deletarProduto(produtoDeletar, produtoParaDeletar)

@@ -7,39 +7,41 @@ import javax.validation.Valid;
 
 import org.springframework.stereotype.Service;
 
-import com.LojaDeGames.Games.model.Produto;
+import com.LojaDeGames.Games.model.Categoria;
 
 @Service
-public class ProdutoService {
+public class CategoriaService {
 
-	public Optional<Object> criarProduto(@Valid Produto novoProduto) {
+	public Optional<Object> criarCategoria(@Valid Categoria novaCategoria) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Optional<Object> atualizarProduto(@Valid Long atualizarProduto, @Valid Produto produtoParaAtualizar) {
+	public Optional<Object> atualizarCategoria(@Valid Long atualizarCategoria,
+			@Valid Categoria categoriaParaAtualizar) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Optional<Object> deletarProduto(Long produtoDeletar, @Valid Produto produtoParaDeletar) {
+	public Optional<Object> deletarCategoria(Long categoriaDeletar, @Valid Categoria categoriaParaDeletar) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public List<Produto> findById(long id) {
+	public List<Categoria> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public List<Produto> findByDescricao(String descricao) {
+	public List<Categoria> findById(long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public List<Produto> findAll() {
+	public List<Categoria> findByTipo(String tipo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-}
+	}
+

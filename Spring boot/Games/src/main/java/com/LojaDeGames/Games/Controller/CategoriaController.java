@@ -27,7 +27,7 @@ public class CategoriaController {
 	@Autowired
 	private CategoriaService services;
 
-	@GetMapping("/todos")
+	@GetMapping
 	public ResponseEntity<List<Categoria>> buscarTodos() {
 		List<Categoria> listaCategoria = services.findAll();
 		if (listaCategoria.isEmpty()) {
@@ -37,7 +37,7 @@ public class CategoriaController {
 		}
 	}
 
-	@GetMapping("/id")
+	@GetMapping("/id/{id}")
 	public ResponseEntity<List<Categoria>> buscarId(@PathVariable long id) {
 		List<Categoria> listaId = services.findById(id);
 		if (listaId.isEmpty()) {
@@ -47,17 +47,17 @@ public class CategoriaController {
 		}
 	}
 
-	@GetMapping("/descricao")
-	public ResponseEntity<List<Categoria>> buscarDescricao(@PathVariable String descricao) {
-		List<Categoria> listaDescricao = services.findByDescricao(descricao);
-		if (listaDescricao.isEmpty()) {
+	@GetMapping("/tipo/{tipo}")
+	public ResponseEntity<List<Categoria>> buscarTipo(@PathVariable String tipo) {
+		List<Categoria> listaTipo = services.findByTipo(tipo);
+		if (listaTipo.isEmpty()) {
 			return ResponseEntity.status(204).build();
 		} else {
-			return ResponseEntity.status(200).body(listaDescricao);
+			return ResponseEntity.status(200).body(listaTipo);
 		}
 	}
 
-	@PostMapping("/criar")
+	@PostMapping
 	public ResponseEntity<Object> salvar(@Valid @RequestBody Categoria novaCategoria) {
 		Optional<Object> categoriaCadastrada = services.criarCategoria(novaCategoria);
 
@@ -68,7 +68,7 @@ public class CategoriaController {
 		}
 	}
 
-	@PutMapping("/{categoria}/atualizarCategoria")
+	@PutMapping
 	public ResponseEntity<Object> atualizarCategoria(
 			@Valid @PathVariable(value = "atualizar_categoria") Long atualizarCategoria,
 			@Valid @RequestBody Categoria categoriaParaAtualizar) {
@@ -77,7 +77,7 @@ public class CategoriaController {
 				.orElse(ResponseEntity.badRequest().build());
 	}
 
-	@DeleteMapping("/{categoria}/Deletar")
+	@DeleteMapping
 	public ResponseEntity<Object> deletarCategoria(@PathVariable(value = "categoria_deletar") Long categoriaDeletar,
 			@Valid @RequestBody Categoria categoriaParaDeletar) {
 		return services.deletarCategoria(categoriaDeletar, categoriaParaDeletar)

@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.farmacia.farmacia.Model.CategoriaModel;
-import com.farmacia.farmacia.Services.CategoriaServices;
 
 @RestController
 @RequestMapping("/categoria")
@@ -26,9 +25,9 @@ import com.farmacia.farmacia.Services.CategoriaServices;
 public class CategoriaController {
 
 	@Autowired
-	private CategoriaServices services;
+	private com.farmacia.farmacia.Services.CategoriaServices services;
 
-	@GetMapping("/todos")
+	@GetMapping
 	public ResponseEntity<List<CategoriaModel>> buscarTodos() {
 		List<CategoriaModel> listaCategoria = services.findAll();
 		if (listaCategoria.isEmpty()) {
@@ -38,7 +37,7 @@ public class CategoriaController {
 		}
 	}
 
-	@GetMapping("/id")
+	@GetMapping("/id/{id}")
 	public ResponseEntity<List<CategoriaModel>> buscarId(@PathVariable long id) {
 		List<CategoriaModel> listaId = services.findById(id);
 		if (listaId.isEmpty()) {
@@ -48,7 +47,7 @@ public class CategoriaController {
 		}
 	}
 
-	@GetMapping("/descricao")
+	@GetMapping("/descricao/{descricao}")
 	public ResponseEntity<List<CategoriaModel>> buscarDescricao(@PathVariable String descricao) {
 		List<CategoriaModel> listaDescricao = services.findByDescricao(descricao);
 		if (listaDescricao.isEmpty()) {
@@ -58,7 +57,7 @@ public class CategoriaController {
 		}
 	}
 
-	@PostMapping("/criar")
+	@PostMapping
 	public ResponseEntity<Object> salvar(@Valid @RequestBody CategoriaModel novaCategoria) {
 		Optional<Object> categoriaCadastrada = services.criarCategoria(novaCategoria);
 
@@ -69,7 +68,7 @@ public class CategoriaController {
 		}
 	}
 
-	@PutMapping("/{categoria}/atualizarCategoria")
+	@PutMapping
 	public ResponseEntity<Object> atualizarCategoria(
 			@Valid @PathVariable(value = "atualizar_categoria") Long atualizarCategoria,
 			@Valid @RequestBody CategoriaModel categoriaParaAtualizar) {
@@ -78,7 +77,7 @@ public class CategoriaController {
 				.orElse(ResponseEntity.badRequest().build());
 	}
 
-	@DeleteMapping("/{categoria}/Deletar")
+	@DeleteMapping
 	public ResponseEntity<Object> deletarCategoria(@PathVariable(value = "categoria_deletar") Long categoriaDeletar,
 			@Valid @RequestBody CategoriaModel categoriaParaDeletar) {
 		return services.atualizarCategoria(categoriaDeletar, categoriaParaDeletar)

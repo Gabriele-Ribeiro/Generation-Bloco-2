@@ -30,6 +30,10 @@ import javax.validation.constraints.Size;
 		@Size(min = 5, max = 100)
 		private String senha;
 
+		public Usuario(String string, String string2, String string3) {
+			// TODO Auto-generated constructor stub
+		}
+
 		public long getId() {
 			return id;
 		}

@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import com.LojaDeGames.Games.model.Produto;
 import com.LojaDeGames.Games.Services.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,7 +28,7 @@ public class ProdutoController {
 	@Autowired 
 	private ProdutoService services;
 	
-	@GetMapping("/todos")
+	@GetMapping
 	public ResponseEntity<List<Produto>> buscarTodos() {
 		List<Produto> listaProduto = services.findAll();
 		if (listaProduto.isEmpty()) {
@@ -37,7 +38,7 @@ public class ProdutoController {
 		}
 	}
 
-	@GetMapping("/id")
+	@GetMapping("/id/{id}")
 	public ResponseEntity<List<Produto>> buscarId(@PathVariable long id) {
 		List<Produto> listaId = services.findById(id);
 		if (listaId.isEmpty()) {
@@ -47,28 +48,18 @@ public class ProdutoController {
 		}
 	}
 
-	@GetMapping("/descricao")
-	public ResponseEntity<List<Produto>> buscarDescricao(@PathVariable String descricao) {
-		List<Produto> listaDescricao = services.findByDescricao(descricao);
-		if (listaDescricao.isEmpty()) {
+	@GetMapping("/nomeProduto/{nomeProduto}")
+	public ResponseEntity<List<Produto>> buscarnomeProduto(@PathVariable String nomeProduto) {
+		List<Produto> listaNomeProduto = services.findByDescricao(nomeProduto);
+		if (listaNomeProduto.isEmpty()) {
 			return ResponseEntity.status(204).build();
 		} else {
-			return ResponseEntity.status(200).body(listaDescricao);
+			return ResponseEntity.status(200).body(listaNomeProduto);
 		}
 	}
 
-	@PostMapping("/criar")
-	public ResponseEntity<Object> salvar(@Valid @RequestBody Produto novoProduto) {
-		Optional<Object> produtoCadastrado = services.criarProduto(novoProduto);
 
-		if (produtoCadastrado.isEmpty()) {
-			return ResponseEntity.status(200).body("Produto Existente");
-		} else {
-			return ResponseEntity.status(201).body("Produto  Criado");
-		}
-	}
-
-	@PutMapping("/{produto}/atualizarProduto")
+	@PutMapping
 	public ResponseEntity<Object> atualizarProduto(@Valid @PathVariable(value = "atualizar_produto") Long atualizarProduto,
 			@Valid @RequestBody Produto produtoParaAtualizar) {
 		return services.atualizarProduto(atualizarProduto, produtoParaAtualizar)
@@ -76,7 +67,7 @@ public class ProdutoController {
 				.orElse(ResponseEntity.badRequest().build());
 	}
 
-	@DeleteMapping("/{produto}/Deletar")
+	@DeleteMapping
 	public ResponseEntity<Object> deletarProduto(@PathVariable(value = "produto_deletar") Long produtoDeletar,
 			@Valid @RequestBody Produto produtoParaDeletar) {
 		return services.deletarProduto(produtoDeletar, produtoParaDeletar)

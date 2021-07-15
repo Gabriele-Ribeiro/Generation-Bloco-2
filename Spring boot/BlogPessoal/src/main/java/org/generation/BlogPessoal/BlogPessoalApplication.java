@@ -7,15 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+
 @SpringBootApplication
 @RestController
 @RequestMapping("/")
 public class BlogPessoalApplication {
-	
 	@GetMapping
-	public ModelAndView swaggerUI () {
-		
-		return new ModelAndView("redirect: /swagger-ui/");
+	public ModelAndView swaggerUi() {
+		return new ModelAndView("redirect:/swagger-ui/");
 	}
 
 	public static void main(String[] args) {

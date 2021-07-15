@@ -30,7 +30,7 @@ public class PostagemController {
 	}
 
 	@GetMapping("/id/{id}")
-	public ResponseEntity<Postagem> GetById(@PathVariable Integer id) {
+	public ResponseEntity<Postagem> GetById(@PathVariable long id) {
 		return ResponseEntity.status(200).body(repository.findById(id));
 	}
 

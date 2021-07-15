@@ -1,11 +1,22 @@
 package org.generation.BlogPessoal.model;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class UserLogin {
 	
+	@NotNull
+	@Size(min = 2, max = 100)
 	private String nome;
 	
+	@NotNull
+	@Email
+	@Size(min = 5, max = 100)
 	private String email;
-	
+
+	@NotNull
+	@Size(min = 5, max = 100)
 	private String senha;
 	
 	private String token;

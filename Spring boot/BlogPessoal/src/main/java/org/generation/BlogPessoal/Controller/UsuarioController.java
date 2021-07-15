@@ -3,6 +3,8 @@ package org.generation.BlogPessoal.Controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.generation.BlogPessoal.model.UserLogin;
 import org.generation.BlogPessoal.model.Usuario;
 import org.generation.BlogPessoal.repository.UsuarioRepository;
@@ -44,11 +46,14 @@ public class UsuarioController {
 				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
 	}
 	
-	@PostMapping("/cadastrar")
-	public ResponseEntity<Usuario> Post(@RequestBody Usuario usuario){
-		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(service.CadastrarUsuario(usuario));
-	}
-	
 
+	@PostMapping("/cadastrar")
+	public ResponseEntity<Object> postCadastrar(@Valid @RequestBody Usuario usuario) {
+		Optional<Usuario> usuarioCriado = service.CadastrarUsuario(usuario);
+		if (usuarioCriado.isEmpty()) {
+			return ResponseEntity.status(200).body("Usuario ja existente!");
+		} else {
+			return ResponseEntity.status(201).body(usuarioCriado.get());
+		}		
+	}
 }

@@ -39,8 +39,13 @@ public class Postagem {
 
 	@ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_tema")
-	@JsonIgnoreProperties({"textoTema"})
-	private Postagem tipoPost;
+	@JsonIgnoreProperties("postagemCriada")
+	private Tema tema;
+
+	@ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+	@JoinColumn(name = "fk_usuario")
+	@JsonIgnoreProperties("postagemCriada")
+	private Usuario criador;
 
 	public long getId() {
 		return id;
@@ -74,12 +79,19 @@ public class Postagem {
 		this.data = data;
 	}
 
-	public Postagem getTipoPost() {
-		return tipoPost;
+	public Tema getTema() {
+		return tema;
 	}
 
-	public void setTipoPost(Postagem tipoPost) {
-		this.tipoPost = tipoPost;
+	public void setTema(Tema tema) {
+		this.tema = tema;
 	}
 
+	public Usuario getCriador() {
+		return criador;
+	}
+
+	public void setCriador(Usuario criador) {
+		this.criador = criador;
+}
 }

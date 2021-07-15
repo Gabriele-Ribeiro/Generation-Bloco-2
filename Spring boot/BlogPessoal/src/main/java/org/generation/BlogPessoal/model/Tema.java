@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "tb_tema")
 public class Tema {
@@ -24,8 +26,9 @@ public class Tema {
 	@NotNull
 	private String descricao;
 
-	@OneToMany(mappedBy = "tipoPost", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-	private List<Postagem> textoTema = new ArrayList<>();
+	@OneToMany(mappedBy = "tema", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+	@JsonIgnoreProperties("postagemCriada")
+	private List<Postagem> postagemCriada = new ArrayList<>();
 
 	public long getId() {
 		return id;
@@ -43,11 +46,11 @@ public class Tema {
 		this.descricao = descricao;
 	}
 
-	public List<Postagem> gettextoTema() {
-		return textoTema;
+	public List<Postagem> getPostagemCriada() {
+		return postagemCriada;
 	}
 
-	public void setTextoTema(List<Postagem> textoTema) {
-		this.textoTema = textoTema;
+	public void setPostagemCriada(List<Postagem> postagemCriada) {
+		this.postagemCriada = postagemCriada;
 	}
 }

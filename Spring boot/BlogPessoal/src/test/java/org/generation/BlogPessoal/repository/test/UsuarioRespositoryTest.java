@@ -7,7 +7,6 @@ import java.util.List;
 import org.generation.BlogPessoal.model.Usuario;
 import org.generation.BlogPessoal.repository.UsuarioRepository;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,22 +19,6 @@ public class UsuarioRespositoryTest {
 
 	@Autowired
 	private UsuarioRepository repository;
-
-	@BeforeAll
-	public void start() {
-		Usuario usuario = new Usuario("Gabi", "gabi@gmail.com", "1234567");
-		if (repository.findFirstByNome(usuario.getNome()) == null)
-			repository.save(usuario);
-		usuario = new Usuario("Gabri", "gabri@gmail.com", "7654321");
-		if (repository.findFirstByNome(usuario.getNome()) == null)
-			repository.save(usuario);
-		usuario = new Usuario("Felipe", "fe@gmail.com", "7654321");
-		if (repository.findFirstByNome(usuario.getNome()) == null)
-			repository.save(usuario);
-		usuario = new Usuario("Zinha", "zinha@gmail.com", "7654321");
-		if (repository.findFirstByNome(usuario.getNome()) == null)
-			repository.save(usuario);
-	}
 
 	@Test
 	public void findByUsuarioRetornaEmail() throws Exception {

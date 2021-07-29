@@ -37,10 +37,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 		@NotNull
 		@Size(min = 5, max = 100)
 		private String senha;
+		
+		private String foto;
+		
+		private String tipo;
 
-		@OneToMany(mappedBy = "criador", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-		@JsonIgnoreProperties("postagemCriada")
-		private List<Postagem> postagemCriada = new ArrayList<>();
+		@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+		@JsonIgnoreProperties("usuario")
+		private List<Postagem> postagem = new ArrayList<>();
 
 		public Usuario() {
 
@@ -87,11 +91,28 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 			this.senha = senha;
 		}
 
-		public List<Postagem> getPostagemCriada() {
-			return postagemCriada;
+		public String getFoto() {
+			return foto;
 		}
 
-		public void setPostagemCriada(List<Postagem> postagemCriada) {
-			this.postagemCriada = postagemCriada;
+		public void setFoto(String foto) {
+			this.foto = foto;
 		}
+
+		public String getTipo() {
+			return tipo;
+		}
+
+		public void setTipo(String tipo) {
+			this.tipo = tipo;
+		}
+
+		public List<Postagem> getPostagem() {
+			return postagem;
+		}
+
+		public void setPostagem(List<Postagem> postagem) {
+			this.postagem = postagem;
+		}
+
 	}

@@ -43,9 +43,8 @@ public class Postagem {
 	private Tema tema;
 
 	@ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-	@JoinColumn(name = "fk_usuario")
-	@JsonIgnoreProperties("postagemCriada")
-	private Usuario criador;
+	@JsonIgnoreProperties("postagem")
+	private Usuario usuario;
 
 	public long getId() {
 		return id;
@@ -87,11 +86,12 @@ public class Postagem {
 		this.tema = tema;
 	}
 
-	public Usuario getCriador() {
-		return criador;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setCriador(Usuario criador) {
-		this.criador = criador;
-}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 }
